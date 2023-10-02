@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
     <title>Canvas</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <canvas
+        id="first-canvas"
+        width="300px"
+        height="200px"
+        style="border: 2px solid black"
+      ></canvas>
+    </div>
+  </body>
+  <script>
+    let canvas = document.getElementById("first-canvas"); //yo chai paper ho
+    let context = canvas.getContext("2d"); //yo pen
+
+    context.beginPath();
+    context.fillStyle = "grey";
+    context.rect(0, 0, 250, 120);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "red";
+    context.arc(40, 50, 30, 0, 2 * Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "yellow";
+    context.arc(120, 50, 30, 0, 2 * Math.PI);
+    context.fill();
+
+    context.beginPath();
+    context.fillStyle = "green";
+    context.arc(200, 50, 30, 0, 2 * Math.PI);
+    context.fill();
+  </script>
 </html>

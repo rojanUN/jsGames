@@ -20,28 +20,38 @@
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
 
-    canvas.addEventListener("mousemove", (e) => {
+    let color = ["black", "blue", "yellow", "red"];
+
+    let target1 = {
+      x: Math.floor(Math.random() * 350),
+      y: Math.floor(Math.random() * 350),
+      active: false,
+    };
+
+    let target2 = {
+      x: Math.floor(Math.random() * 350),
+      y: Math.floor(Math.random() * 350),
+      active: false,
+    };
+
+    let targets = [target1, target2];
+
+    canvas.addEventListener("mousedown", (e) => {
       context.clearRect(0, 0, 500, 500);
+      let rad = 30;
+      for (let i = 0; i < color.length; i++) {
+        context.beginPath();
+        context.fillStyle = color[i];
+        context.arc(e.offsetX, e.offsetY, rad, 0, 2 * Math.PI);
+        rad /= 2;
+        context.fill();
+      }
+    });
 
-      console.log(e);
+    targets.forEach((element) => {
       context.beginPath();
-      context.fillStyle = "black";
-      context.arc(e.offsetX, e.offsetY, 30, 0, 2 * Math.PI);
-      context.fill();
-
-      context.beginPath();
-      context.fillStyle = "blue";
-      context.arc(e.offsetX, e.offsetY, 20, 0, 2 * Math.PI);
-      context.fill();
-
-      context.beginPath();
-      context.fillStyle = "yellow";
-      context.arc(e.offsetX, e.offsetY, 10, 0, 2 * Math.PI);
-      context.fill();
-
-      context.beginPath();
-      context.fillStyle = "red";
-      context.arc(e.offsetX, e.offsetY, 5, 0, 2 * Math.PI);
+      context.fillStyle = color[i];
+      context.arc(targets[i].x, targets[i].y, 50, 0, 2 * Math.PI);
       context.fill();
     });
   </script>

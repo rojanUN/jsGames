@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Target Fixation</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center">
+      <canvas
+        width="500"
+        height="500"
+        id="canvas"
+        style="border: 2px solid black; background-color: teal"
+      >
+      </canvas>
+    </div>
+  </body>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    canvas.addEventListener("mousemove", (e) => {
+      context.clearRect(0, 0, 500, 500);
+
+      console.log(e);
+      context.beginPath();
+      context.fillStyle = "black";
+      context.arc(e.offsetX, e.offsetY, 30, 0, 2 * Math.PI);
+      context.fill();
+
+      context.beginPath();
+      context.fillStyle = "blue";
+      context.arc(e.offsetX, e.offsetY, 20, 0, 2 * Math.PI);
+      context.fill();
+
+      context.beginPath();
+      context.fillStyle = "yellow";
+      context.arc(e.offsetX, e.offsetY, 10, 0, 2 * Math.PI);
+      context.fill();
+
+      context.beginPath();
+      context.fillStyle = "red";
+      context.arc(e.offsetX, e.offsetY, 5, 0, 2 * Math.PI);
+      context.fill();
+    });
+  </script>
+</html>

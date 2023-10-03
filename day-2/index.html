@@ -20,11 +20,6 @@
     canvas.addEventListener("mousemove", (e) => {
       console.log(e.clientX, e.clientY);
 
-      canvas.addEventListener("keydown", (a) => {
-        if (a.code === "space") {
-          context.arc(e.clientX + 20, e.clientY + 70, 30, 0, 2 * Math.PI);
-        }
-      });
       context.clearRect(0, 0, 300, 300);
 
       context.beginPath();

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event</title>
+  </head>
+  <body>
+    <canvas
+      width="300"
+      height="300"
+      id="canvas"
+      style="background-color: aqua"
+    ></canvas>
+  </body>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    canvas.addEventListener("mousemove", (e) => {
+      console.log(e.clientX, e.clientY);
+
+      canvas.addEventListener("keydown", (a) => {
+        if (a.code === "space") {
+          context.arc(e.clientX + 20, e.clientY + 70, 30, 0, 2 * Math.PI);
+        }
+      });
+      context.clearRect(0, 0, 300, 300);
+
+      context.beginPath();
+      context.fillStyle = "green";
+      context.arc(e.clientX, e.clientY, 30, 0, 2 * Math.PI);
+      context.fill();
+    });
+  </script>
+</html>

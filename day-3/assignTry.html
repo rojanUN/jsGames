@@ -19,22 +19,43 @@
   <script>
     const canvas = document.getElementById("canvas");
     const cxt = canvas.getContext("2d");
-
-    let x = 0,
-      y = 50;
-
+    let x = 0;
+    let y = 0;
+    let dy = 0;
+    let clicked = false;
     function renderObj() {
+      if (clicked) {
+        // cxt.clearRect(0, 0, canvas.width, canvas.height);
+        cxt.beginPath();
+        cxt.fillStyle = "red";
+        cxt.arc(x, y, 50, 0, 2 * Math.PI);
+        cxt.fill();
+      }
+    }
+    animateObj();
+    function animateObj() {
+      y += dy;
+      renderObj();
+      //   console.log(y, dy);
+      window.requestAnimationFrame(animateObj);
+    }
+    canvas.addEventListener("mousemove", (e) => {
       cxt.clearRect(0, 0, 500, 500);
       cxt.beginPath();
-      cxt.fillStyle = "red";
-      cxt.rect(x, y, 50, 50);
+      cxt.fillStyle = "blue";
+      cxt.arc(e.offsetX, e.offsetY, 50, 0, 2 * Math.PI);
       cxt.fill();
-      x += 1;
-    }
-    function loopGarr() {
-      renderObj();
-      window.requestAnimationFrame(loopGarr);
-    }
-    loopGarr();
+
+      //   x = e.offsetX;
+      //   y = e.offsetY;
+      console.log(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener("mousedown", (e) => {
+      clicked = true;
+      dy = 1;
+      x = e.offsetX;
+      y = e.offsetY;
+    });
   </script>
 </html>

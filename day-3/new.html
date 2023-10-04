@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle Animation</title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="500"
+      height="500"
+      style="background-color: aqua"
+    ></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      let x = 0;
+      let y = 0;
+      let isFalling = false;
+
+      function renderCircle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.arc(x, y, 50, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      function animateCircle() {
+        if (isFalling) {
+          y += 2; // Adjust the speed of falling by changing this value
+          renderCircle();
+
+          if (y < canvas.height) {
+            requestAnimationFrame(animateCircle);
+          } else {
+            isFalling = false;
+          }
+        }
+      }
+
+      canvas.addEventListener("click", (e) => {
+        if (!isFalling) {
+          x = e.offsetX;
+          y = e.offsetY;
+          isFalling = true;
+          animateCircle();
+        }
+      });
+    </script>
+  </body>
+</html>

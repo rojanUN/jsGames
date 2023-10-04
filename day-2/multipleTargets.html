@@ -20,39 +20,28 @@
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
 
-    let color = ["black", "blue", "yellow", "red"];
-
-    let target1 = {
-      x: Math.floor(Math.random() * 350),
-      y: Math.floor(Math.random() * 350),
-      active: false,
-    };
-
-    let target2 = {
-      x: Math.floor(Math.random() * 350),
-      y: Math.floor(Math.random() * 350),
-      active: false,
-    };
-
-    let targets = [target1, target2];
-
-    canvas.addEventListener("mousedown", (e) => {
-      context.clearRect(0, 0, 500, 500);
-      let rad = 30;
-      for (let i = 0; i < color.length; i++) {
-        context.beginPath();
-        context.fillStyle = color[i];
-        context.arc(e.offsetX, e.offsetY, rad, 0, 2 * Math.PI);
-        rad /= 2;
-        context.fill();
-      }
-    });
-
-    targets.forEach((element) => {
-      context.beginPath();
-      context.fillStyle = color[i];
-      context.arc(targets[i].x, targets[i].y, 50, 0, 2 * Math.PI);
-      context.fill();
-    });
+    let targets = [];
+    for (let k = 0; k <= 10; k++) {
+      let target = {
+        color: ["black", "blue", "yellow", "red"],
+        x: Math.floor(Math.random() * 350),
+        y: Math.floor(Math.random() * 350),
+        createTarget: function () {
+          let rad = 30;
+          for (let i = 0; i < this.color.length; i++) {
+            context.beginPath();
+            context.fillStyle = this.color[i];
+            context.arc(this.x, this.y, rad, 0, 2 * Math.PI);
+            rad /= 2;
+            context.fill();
+          }
+        },
+      };
+      targets.push(target);
+    }
+    context.clearRect(0, 0, 500, 500);
+    for (let j = 0; j <= targets.length - 1; j++) {
+      targets[j].createTarget();
+    }
   </script>
 </html>

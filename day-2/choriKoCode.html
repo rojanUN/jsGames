@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Target Fixation</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center">
+      <canvas
+        width="500"
+        height="500"
+        id="canvas"
+        style="border: 2px solid black; background-color: teal"
+      >
+      </canvas>
+    </div>
+  </body>
+  <script>
+    let canvas = document.getElementById("canvas");
+    let context = canvas.getContext("2d");
+
+    let targets = [];
+
+    // Function to create a random target
+    function createRandomTarget() {
+      return {
+        color: ["black", "blue", "yellow", "red"],
+        x: Math.floor(Math.random() * 350),
+        y: Math.floor(Math.random() * 350),
+        radius: 30,
+        active: true,
+        draw: function () {
+          if (this.active) {
+            let rad = this.radius;
+            for (let i = 0; i < this.color.length; i++) {
+              context.beginPath();
+              context.fillStyle = this.color[i];
+              context.arc(this.x, this.y, rad, 0, 2 * Math.PI);
+              rad /= 2;
+              context.fill();
+            }
+          }
+        },
+      };
+    }
+
+    // Function to remove a target from the targets array
+    function removeTarget(target) {
+      let index = targets.indexOf(target);
+      if (index !== -1) {
+        targets.splice(index, 1);
+      }
+    }
+
+    // Function to handle click events
+    function handleClick(event) {
+      let rect = canvas.getBoundingClientRect();
+      let mouseX = event.clientX - rect.left;
+      let mouseY = event.clientY - rect.top;
+
+      // Check if the click is inside any active target
+      for (let i = 0; i < targets.length; i++) {
+        let target = targets[i];
+        let distance = Math.sqrt(
+          Math.pow(mouseX - target.x, 2) + Math.pow(mouseY - target.y, 2)
+        );
+        if (distance <= target.radius && target.active) {
+          removeTarget(target);
+          redrawCanvas();
+          break; // Exit the loop after removing the target
+        }
+      }
+    }
+
+    // Function to clear and redraw the canvas with remaining targets
+    function redrawCanvas() {
+      context.clearRect(0, 0, 500, 500);
+      for (let i = 0; i < targets.length; i++) {
+        targets[i].draw();
+      }
+    }
+
+    // Add click event listener to the canvas
+    canvas.addEventListener("click", handleClick);
+
+    // Create initial targets
+    for (let k = 0; k <= 10; k++) {
+      targets.push(createRandomTarget());
+    }
+
+    // Initial drawing of targets on the canvas
+    redrawCanvas();
+  </script>
+</html>

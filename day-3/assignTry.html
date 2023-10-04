@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Loop</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center">
+      <canvas
+        width="500"
+        height="500"
+        id="canvas"
+        style="border: 2px solid black; background-color: lightgreen"
+      >
+      </canvas>
+    </div>
+  </body>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const cxt = canvas.getContext("2d");
+
+    let x = 0,
+      y = 50;
+
+    function renderObj() {
+      cxt.clearRect(0, 0, 500, 500);
+      cxt.beginPath();
+      cxt.fillStyle = "red";
+      cxt.rect(x, y, 50, 50);
+      cxt.fill();
+      x += 1;
+    }
+    function loopGarr() {
+      renderObj();
+      window.requestAnimationFrame(loopGarr);
+    }
+    loopGarr();
+  </script>
+</html>
